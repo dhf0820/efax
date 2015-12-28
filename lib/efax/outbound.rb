@@ -72,7 +72,6 @@ module EFax
         content_type = options[:content_type] if options[:content_type]
         transmissionid = options[:transmissionid]
       end
-binding.pry
       xml_request = ""
       xml = Builder::XmlMarkup.new(:target => xml_request, :indent => 2 )
       xml.instruct! :xml, :version => '1.0'
