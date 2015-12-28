@@ -3,6 +3,9 @@ require 'net/https'
 require 'builder'
 require 'hpricot'
 require 'base64'
+require 'json'
+require 'pry'
+require 'active_support/core_ext/hash'
 
 module Net #:nodoc:
   # Helper class for making HTTPS requests
@@ -63,7 +66,13 @@ module EFax
       OutboundResponse.new(response)
     end
 
-    def self.xml(name, company, fax_number, subject, content, content_type = :html)
+    def self.xml(name, company, fax_number, subject, content, options = {}) #content_type = :html)
+      content_type = 'PDF'
+      if (options) 
+        content_type = options[:content_type] if options[:content_type]
+        transmissionid = options[:transmissionid]
+      end
+binding.pry
       xml_request = ""
       xml = Builder::XmlMarkup.new(:target => xml_request, :indent => 2 )
       xml.instruct! :xml, :version => '1.0'
@@ -74,6 +83,9 @@ module EFax
         end
         xml.Transmission do
           xml.TransmissionControl do
+            if(transmissionid)
+              xml.TransmissionID(transmissionid.to_s)
+            end
             xml.Resolution("FINE")
             xml.Priority("NORMAL")
             xml.SelfBusy("ENABLE")
@@ -177,11 +189,28 @@ module EFax
     attr_reader :outcome
 
     def initialize(response) #:nodoc:
+      f = 'response_body.xml'
       if response.is_a? Net::HTTPOK
+
+        #File.open([Time.now.strftime("%Y-%m-%d-%H%M%S"),f].join("_"), 'w').write response.body
+        File.open('response_body.xml', 'w') {|f| f.write response.body}
         doc = Hpricot(response.body)
+        puts doc
         @message = doc.at(:message).innerText
         @classification = doc.at(:classification).innerText.delete('"')
         @outcome = doc.at(:outcome).innerText.delete('"')
+        @transmission_id = doc.at(:transmissionid).innerText.delete('"')
+        @lastdate = doc.at(:lastdate).innerText.delete('"')
+        @lasttime = doc.at(:lasttime).innerText.delete('"')
+        @nextdate = doc.at(:nextdate).innerText.delete('"')
+        @nexttime = doc.at(:nexttime).innerText.delete('"')
+        if(@outcome =~ /probable human/)
+          @human = 'PROBABLE HUMAN'
+        else
+          @human = ''
+        end
+        # @json = Hash.from_xml(response.body).to_json
+        # puts "json = #{@json}"
         if !sent_yet?(classification, outcome) || busy_signal?(classification)
           @status_code = QueryStatus::PENDING
         elsif @classification == "Success" && @outcome == "Success"
