@@ -15,10 +15,10 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = EFax::VERSION
 
-  gem.add_runtime_dependency "builder", "~> 3.0.0"
-  gem.add_runtime_dependency "hpricot", "~> 0.8.1"
+  gem.add_runtime_dependency "builder", "~> 3.2"
+  gem.add_runtime_dependency "hpricot", "~> 0.8"
 
-  gem.add_development_dependency "test-unit", "~> 2.3.2"
-  gem.add_development_dependency "mocha", "~> 0.9.12"
+  gem.add_development_dependency "test-unit", "~> 3.1"
+  gem.add_development_dependency "mocha", "~> 1.1"
   gem.add_development_dependency "pry", "~> 0.10"
 end
