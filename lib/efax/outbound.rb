@@ -204,9 +204,9 @@ module EFax
         @lasttime = doc.at(:lasttime).innerText.delete('"')
         @nextdate = doc.at(:nextdate).innerText.delete('"')
         @nexttime = doc.at(:nexttime).innerText.delete('"')
-        @remote_csid = doc.at(:remotecsid).innerText.delete'"')
+        @remote_csid = doc.at(:remotecsid).innerText.delete('"')
         @pages = doc.at(:sent).innerText.delete('"')
-        
+
         if(@outcome =~ /probable human/)
           @human = 'PROBABLE HUMAN'
         else
