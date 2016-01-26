@@ -2,8 +2,8 @@
 require File.expand_path('../lib/efax/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Szymon Nowak", "Pawel Kozlowski", "Dr Nic Williams"]
-  gem.email         = ["szimek@gmail.com"]
+  gem.authors       = ["Szymon Nowak", "Pawel Kozlowski", "Dr Nic Williams", "Donald French"]
+  gem.email         = ["szimek@gmail.com", "dhfrench@vertisoft.com"]
   gem.description   = %q{Ruby library for accessing the eFax Developer service}
   gem.summary       = %q{Ruby library for accessing the eFax Developer service}
   gem.homepage      = "http://github.com/szimek/efax"
@@ -20,4 +20,5 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency "test-unit", "~> 2.3.2"
   gem.add_development_dependency "mocha", "~> 0.9.12"
+  gem.add_development_dependency "pry", "~> 0.10"
 end
