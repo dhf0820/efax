@@ -67,8 +67,8 @@ module EFax
     end
 
     def self.xml(name, company, fax_number, subject, content, options = {}) #content_type = :html)
-      content_type = 'PDF'
-      binding.pry
+      content_type = :pdf
+
       if (options) 
         content_type = options[:content_type] if options[:content_type]
         transmissionid = options[:transmissionid]
