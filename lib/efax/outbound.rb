@@ -193,9 +193,9 @@ module EFax
       if response.is_a? Net::HTTPOK
 
         #File.open([Time.now.strftime("%Y-%m-%d-%H%M%S"),f].join("_"), 'w').write response.body
-        File.open('response_body.xml', 'w') {|f| f.write response.body}
+  #      File.open('response_body.xml', 'w') {|f| f.write response.body}
         doc = Hpricot(response.body)
-        puts doc
+  #     puts doc
         @message = doc.at(:message).innerText
         @classification = doc.at(:classification).innerText.delete('"')
         @outcome = doc.at(:outcome).innerText.delete('"')
@@ -204,6 +204,9 @@ module EFax
         @lasttime = doc.at(:lasttime).innerText.delete('"')
         @nextdate = doc.at(:nextdate).innerText.delete('"')
         @nexttime = doc.at(:nexttime).innerText.delete('"')
+        @remote_csid = doc.at(:remotecsid).innerText.delete'"')
+        @pages = doc.at(:sent).innerText.delete('"')
+        
         if(@outcome =~ /probable human/)
           @human = 'PROBABLE HUMAN'
         else
