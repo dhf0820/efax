@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<OutboundStatusResponse>
+  <Transmission>
+    <TransmissionControl>
+      <TransmissionID>5432</TransmissionID>
+    </TransmissionControl>
+    <Recipients>
+      <Recipient>
+        <DOCID>63127288</DOCID>
+        <Name>Theresa French</Name>
+        <Company>VertiSoft Corp</Company>
+        <Fax>702-503-9665</Fax>
+        <Status>
+          <Message>Your transmission has completed.</Message>
+          <Classification>"No answer"</Classification>
+          <Outcome>"Answer detected, probable human"</Outcome>
+        </Status>
+        <LastAttempt>
+          <LastDate>12/26/2015</LastDate>
+          <LastTime>17:48:09</LastTime>
+        </LastAttempt>
+        <NextAttempt>
+          <NextDate></NextDate>
+          <NextTime></NextTime>
+        </NextAttempt>
+        <Pages>
+          <Scheduled>3</Scheduled>
+          <Sent>0</Sent>
+        </Pages>
+        <BaudRate>0</BaudRate>
+        <Duration>0.0</Duration>
+        <Retries>2</Retries>
+        <RemoteCSID>""</RemoteCSID>
+      </Recipient>
+    </Recipients>
+  </Transmission>
+</OutboundStatusResponse>
