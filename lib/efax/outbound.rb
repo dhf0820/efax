@@ -4,7 +4,7 @@ require 'builder'
 require 'hpricot'
 require 'base64'
 require 'json'
-require 'pry'
+
 require 'active_support/core_ext/hash'
 
 module Net #:nodoc:

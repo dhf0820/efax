@@ -20,5 +20,5 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency "test-unit", "~> 3.1"
   gem.add_development_dependency "mocha", "~> 1.1"
-  gem.add_development_dependency "pry", "~> 0.10"
+ # gem.add_development_dependency "pry", "~> 0.10"
 end
