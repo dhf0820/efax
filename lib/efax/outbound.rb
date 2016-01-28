@@ -28,6 +28,8 @@ module EFax
 
   # Base class for OutboundRequest and OutboundStatus classes
   class Request
+    @@disposition_level = 'NONE' # Default none
+
     def self.user
       @@user
     end
@@ -47,6 +49,11 @@ module EFax
     end
     def self.account_id=(id)
       @@account_id = id
+    end
+
+    def self.call_back_url = (call_back)
+      @@call_back_url =  callback
+      @disposition_level = 'POST'
     end
 
     def self.params(content)
@@ -92,7 +99,13 @@ module EFax
             xml.FaxHeader(subject)
           end
           xml.DispositionControl do
-            xml.DispositionLevel("NONE")
+            if @@call_back_url do
+              xml.DispositionControl = @@call_back_url
+              xml.DispositionLevel = 'BOTH'
+              xml.DispositionMethod = 'POST'
+            else
+              xml.DispositionLevel("NONE")
+            end
           end
           xml.Recipients do
             xml.Recipient do
@@ -121,7 +134,6 @@ module EFax
     SUCCESS      = 1
     FAILURE      = 2
   end
-
   class OutboundResponse
     attr_reader :status_code
     attr_reader :error_message
